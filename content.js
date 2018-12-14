@@ -1,35 +1,58 @@
 // content.js
+var extensionMode = 'unobtrusive';
 
-// get all images
-var allImages = $('img');
+if(extensionMode != 'disabled') {
 
-var regex = /\/full\/[\!0-9]*,[\!0-9]*\/\d*\/.*\.jpg/;
-var iconPNG = chrome.extension.getURL("images/snail32.png");
-var iconSVG = chrome.extension.getURL("images/snail.svg");
+    // get all images
+    var allImages = $('img');
 
-// loop over images and check for iiif pattern in src
-$.each( allImages, function( index, image ){
-    
-    var src = $(image).attr('src')
-    
-    if (src.match(regex)) {
+    var regex = /\/full\/[\!0-9]*,[\!0-9]*\/\d*\/.*\.jpg/;
+    var iconPNG = chrome.extension.getURL("images/snail32.png");
+    var iconSVG = chrome.extension.getURL("images/snail.svg");
 
-        // replace with info json
-        var infoJSON = src.replace(regex, "/info.json");
+    // loop over images and check for iiif pattern in src
+    $.each( allImages, function( index, image ){
+        
+        var src = $(image).attr('src');
+        
+        if (src.match(regex)) {
 
-        // is parent an 'a' tag?
-        var parent = $(image).parent();
+            // replace with info json
+            var infoJSON = src.replace(regex, "/info.json");
 
-        // add the link to the DOM
-        if($(parent).is("a")) {
+            // is parent an 'a' tag?
+            var parent = $(image).parent();
 
-            $(parent).after("<a href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'><img src='" + iconPNG + "' /></a>");
-        }
-        else {
+            // add the link to the DOM
+            if($(parent).is("a")) {
+
+                $(parent).after("<a id='slowlookinglink_" + index + "' class='slowlookinglink' href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'><img src='" + iconPNG + "' /></a>");
+            }
+            else {
+                
+                $(image).after("<a id='slowlookinglink_" + index + "' class='slowlookinglink' href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'><img src='" + iconPNG + "' /></a>");
+            }
             
-            $(image).after("<a href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'><img src='" + iconPNG + "' /></a>");
+            
+            if(extensionMode == 'unobtrusive') {
+                
+                $("#slowlookinglink_" + index).hide();
+
+                $(image).mouseenter(function() {
+                    $("#slowlookinglink_" + index).show();
+                });
+
+                $(image).mouseleave(function() {
+                    $("#slowlookinglink_" + index).hide();
+                });
+
+                
+            }
         }
 
-    }
+    });
+    
+    
 
-});
+}
+
