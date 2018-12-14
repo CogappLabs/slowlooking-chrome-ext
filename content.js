@@ -16,7 +16,9 @@ $.each( allImages, function( index, image ){
         var infoJSON = src.replace(regex, "/info.json");
 
         // we found one we need to add a button
-        $(image).wrap( "<a href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'></a>" );
+        //$(image).wrap( "<a href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'></a>" );
+        $(image).after( "<a href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'>Slow look</a>" );
+
     }
 
 });
