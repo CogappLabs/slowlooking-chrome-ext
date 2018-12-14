@@ -4,6 +4,8 @@
 var allImages = $('img');
 
 var regex = /\/full\/[\!0-9]*,[\!0-9]*\/\d*\/.*\.jpg/;
+var iconPNG = chrome.extension.getURL("images/snail32.png");
+var iconSVG = chrome.extension.getURL("images/snail.svg");
 
 // loop over images and check for iiif pattern in src
 $.each( allImages, function( index, image ){
@@ -12,18 +14,22 @@ $.each( allImages, function( index, image ){
     
     if (src.match(regex)) {
 
-        // replace
+        // replace with info json
         var infoJSON = src.replace(regex, "/info.json");
 
-        // we found one we need to add a button
-        //$(image).wrap( "<a href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'></a>" );
-        $(image).after( "<a href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'>Slow look</a>" );
+        // is parent an 'a' tag?
+        var parent = $(image).parent();
+
+        // add the link to the DOM
+        if($(parent).is("a")) {
+
+            $(parent).after("<a href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'><img src='" + iconPNG + "' /></a>");
+        }
+        else {
+            
+            $(image).after("<a href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'><img src='" + iconPNG + "' /></a>");
+        }
 
     }
 
 });
-
-
-
-// var destination = $('.emoticon-button').offset();
-// $('#icon-selection-menu').css({top: destination.top, left: destination.left});

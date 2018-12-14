@@ -29,5 +29,6 @@
       "js": ["jquery-3.3.1.slim.min.js", "content.js"]
     }
   ],
+  "web_accessible_resources": ["images/*.*"],
   "manifest_version": 2
 }
