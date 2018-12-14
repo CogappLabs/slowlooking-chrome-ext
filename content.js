@@ -1,22 +1,5 @@
 // content.js
 
-// get all images and their src
-// var allImages = $('img').map(function(){
-//     return $(this).attr('src')
-// }).get()
-
-// var regex = /\/full\/[\!0-9]*,[\!0-9]*\/\d*\/.*\.jpg/;
-// // loop over images and check for iiif pattern in src
-// $.each( allImages, function( index, src ){
-  
-//     if (src.match(regex)) {
-//         console.log('Woo we have a IIIF image: ' + src);
-
-//         // we found one we need to add a button
-//     }
-// });
-
-
 // get all images
 var allImages = $('img');
 
@@ -24,16 +7,21 @@ var regex = /\/full\/[\!0-9]*,[\!0-9]*\/\d*\/.*\.jpg/;
 
 // loop over images and check for iiif pattern in src
 $.each( allImages, function( index, image ){
+    
     var src = $(image).attr('src')
     
     if (src.match(regex)) {
-        console.log('Woo we have a IIIF image: ' + src);
+
+        // replace
+        var infoJSON = src.replace(regex, "/info.json");
 
         // we found one we need to add a button
+        $(image).wrap( "<a href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'></a>" );
     }
-    else {
-        console.log('BOO: ' + src);
 
-    }
 });
 
+
+
+// var destination = $('.emoticon-button').offset();
+// $('#icon-selection-menu').css({top: destination.top, left: destination.left});
