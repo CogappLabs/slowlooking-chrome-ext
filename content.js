@@ -1,66 +1,75 @@
 // content.js
-var extensionMode = 'unobtrusive';
 
-if(extensionMode != 'disabled') {
+chrome.storage.sync.get('display_mode', function(data) {
+    // console.log('display: ' + data.display_mode);
+    extensionMode = data.display_mode;
+    decoratePage(extensionMode);
+});
 
-    // get all images
-    var allImages = $('img');
+function decoratePage(extensionMode) {
 
-    var regex = /\/full\/[\!0-9]*,[\!0-9]*\/\d*\/.*\.jpg/;
-    var iconPNG = chrome.extension.getURL("images/snail32.png");
-    var iconSVG = chrome.extension.getURL("images/snail.svg");
+    // console.log('extensionMode: ' + extensionMode);
 
-    // loop over images and check for iiif pattern in src
-    $.each( allImages, function( index, image ){
-        
-        var src = $(image).attr('src');
-        
-        if (src.match(regex)) {
+    if(extensionMode != 'disabled') {
 
-            // replace with info json
-            var infoJSON = src.replace(regex, "/info.json");
+        // get all images
+        var allImages = $('img');
 
-            // is parent an 'a' tag?
-            var parent = $(image).parent();
+        var regex = /\/full\/[\!0-9]*,[\!0-9]*\/\d*\/.*\.jpg/;
+        var iconPNG = chrome.extension.getURL("images/eye32.png");
+        var iconSVG = chrome.extension.getURL("images/eye.svg");
 
-            // add the link to the DOM
-            if($(parent).is("a")) {
+        // loop over images and check for iiif pattern in src
+        $.each( allImages, function( index, image ){
 
-                $(parent).after("<a id='slowlookinglink_" + index + "' class='slowlookinglink' href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'><img src='" + iconPNG + "' /></a>");
-            }
-            else {
-                
-                $(image).after("<a id='slowlookinglink_" + index + "' class='slowlookinglink' href='http://slowlooking.cogapp.com/?image=" + infoJSON + "'><img src='" + iconPNG + "' /></a>");
-            }
-            
-            
-            if(extensionMode == 'unobtrusive') {
-                
-                $("#slowlookinglink_" + index).hide();
+            var src = $(image).attr('src');
 
-                $(image).mouseenter(function() {
-                    $("#slowlookinglink_" + index).show();
-                });
+            if (src.match(regex)) {
 
-                $("#slowlookinglink_" + index).mouseenter(function() {
-                    $("#slowlookinglink_" + index).show();
-                });
+                // replace with info json
+                var infoJSON = src.replace(regex, "/info.json");
 
-                $(image).mouseleave(function() {
+                // is parent an 'a' tag?
+                var parentElement = $(image).parent();
+
+                // add the link to the DOM
+                if($(parentElement).is("a")) {
+
+                    $(parentElement).after("<a id='slowlookinglink_" + index + "' class='slowlookinglink' href='http://slowlooking.cogapp.com/?image=" + infoJSON + "' target='_blank'><img src='" + iconPNG + "' /></a>");
+                }
+                else {
+
+                    $(image).after("<a id='slowlookinglink_" + index + "' class='slowlookinglink' href='http://slowlooking.cogapp.com/?image=" + infoJSON + "' target='_blank'><img src='" + iconPNG + "' /></a>");
+                }
+
+
+                if(extensionMode == 'unobtrusive') {
+
                     $("#slowlookinglink_" + index).hide();
-                });
 
-                $("#slowlookinglink_" + index).mouseleave(function() {
-                    $("#slowlookinglink_" + index).hide();
-                });
+                    $(image).mouseenter(function() {
+                        $("#slowlookinglink_" + index).show();
+                    });
 
-                
+                    $("#slowlookinglink_" + index).mouseenter(function() {
+                        $("#slowlookinglink_" + index).show();
+                    });
+
+                    $(image).mouseleave(function() {
+                        $("#slowlookinglink_" + index).hide();
+                    });
+
+                    $("#slowlookinglink_" + index).mouseleave(function() {
+                        $("#slowlookinglink_" + index).hide();
+                    });
+
+
+                }
             }
-        }
 
-    });
-    
-    
+        });
+
+    }
 
 }
 

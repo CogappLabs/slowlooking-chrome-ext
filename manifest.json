@@ -8,18 +8,20 @@
     "scripts": ["background.js"],
     "persistent": false
   },
-  "page_action": {
-    "default_popup": "popup.html",
+  "browser_action": {
+    "default_popup": "options.html",
     "default_icon": {
-      "16": "images/snail16.png",
-      "32": "images/snail32.png",
-      "128": "images/snail128.png"
+      "16": "images/eye16.png",
+      "32": "images/eye32.png",
+      "48": "images/eye48.png",
+      "128": "images/eye128.png"
     }
   },
   "icons": {
-    "16": "images/snail16.png",
-    "32": "images/snail32.png",
-    "128": "images/snail128.png"
+    "16": "images/eye16.png",
+    "32": "images/eye32.png",
+    "48": "images/eye48.png",
+    "128": "images/eye128.png"
   },
   "content_scripts": [
     {

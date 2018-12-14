@@ -4,18 +4,25 @@
 
 'use strict';
 
-let page = document.getElementById('buttonDiv');
-const kButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
-function constructOptions(kButtonColors) {
-  for (let item of kButtonColors) {
-    let button = document.createElement('button');
-    button.style.backgroundColor = item;
-    button.addEventListener('click', function() {
-      chrome.storage.sync.set({color: item}, function() {
-        console.log('color is ' + item);
+function showCurrent() {
+  chrome.storage.sync.get('display_mode', function(data) {
+    // console.log('display: ' + data.display_mode);
+    let radiobtn = document.getElementById(data.display_mode);
+    radiobtn.checked = true;
+  });
+
+}
+
+function detectOptions() {
+  for (let item of document.options.display_options) {
+    // console.log('in ' + item)
+    item.addEventListener('click', function() {
+      // console.log('display mode is ' + item.value);
+      chrome.storage.sync.set({display_mode: item.value}, function() {
+        console.log('display mode set to ' + item.value);
       })
     });
-    page.appendChild(button);
   }
 }
-constructOptions(kButtonColors);
+showCurrent();
+detectOptions();
