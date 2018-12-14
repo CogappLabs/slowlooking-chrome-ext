@@ -1,7 +1,7 @@
 {
-  "name": "Getting Started Example",
+  "name": "Slow looking",
   "version": "1.0",
-  "description": "Build an Extension!",
+  "description": "A Chrome extension that will allow you to slow look any IIIF served image featured on a website.",
   "permissions": ["activeTab", "declarativeContent", "storage"],
   "options_page": "options.html",
   "background": {
