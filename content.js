@@ -42,7 +42,15 @@ if(extensionMode != 'disabled') {
                     $("#slowlookinglink_" + index).show();
                 });
 
+                $("#slowlookinglink_" + index).mouseenter(function() {
+                    $("#slowlookinglink_" + index).show();
+                });
+
                 $(image).mouseleave(function() {
+                    $("#slowlookinglink_" + index).hide();
+                });
+
+                $("#slowlookinglink_" + index).mouseleave(function() {
                     $("#slowlookinglink_" + index).hide();
                 });
 
