@@ -18,26 +18,36 @@ Please [log an issue](https://github.com/Cogapp/slowlooking-chrome-ext/issues) o
 
 Here's a list of things that are on our road-map:
 
+0. Add links as siblings of the a element surrounding an image links, not the image itself (see Wellcome Collection below)
+0. Better matching of images (e.g. 'native' as well as 'default' - YCBA; srcset - AIC)
 1. Make it work with embedded Openseadragon viewers
-2. Better handling of Javascript-rendered pages
+2. Better handling of Javascript-rendered pages (e.g. [NGA thumbnails](https://www.nga.gov/collection-search-result.html?artobj_imagesonly=Images_online))
 3. Better placement and icons (SVG)
 
 ## Sample sites
 
-Here's a list of sites that are known to work (or not), with sample pages to visit:
+Here's a list of some of the sites that are known to work (or not), with sample pages to visit:
 
 ### Fully working
 
 - [Qatar Digital Library](https://www.qdl.qa/en/search/site/?f[0]=document_source:archive_source)
 - [Endangered Archives Programme](https://eap.bl.uk/search/site?f%5B0%5D=ss_simplified_type%3AItem)
+- [National Gallery of Art](https://www.nga.gov/collection/art-object-page.43626.html)
+- [Art Institute Chicago](https://www.artic.edu/highlights/4/new-on-view)
+- [Art Gallery Ontario](http://ago.ca/collection/prints-and-drawing)
 
 ### Partially working
 
-- [Chester Beatty](https://viewer.cbl.ie/viewer/browse/-/1/SORT_TITLE/DC:arabiccollection/) - _we mangle the DOM and hyperlink on the image instead of unser it_
+- [Chester Beatty](https://viewer.cbl.ie/viewer/browse/-/1/SORT_TITLE/DC:arabiccollection/) - _we mangle the DOM and hyperlink on the image instead of under it_
+- [Wellcome Collection](https://wellcomecollection.org/works/ff22u3ww?query=london) - _listing page: sibling problem so doesn't display, individual page: displays, but MASSIVE_
+- [AIC artwork page](https://www.artic.edu/artworks/111628/nighthawks) - _Uses `srcset`; we currently only look for `src`_
+
+_N.b. a workaround for anything in this category is to right-click on an image, then 'open in new tab'. Then you'll see the image standalone with the slow looking link below. E.g. [this image from the Wellcome Collection](https://iiif.wellcomecollection.org/image/V0047614.jpg/full/282,/0/default.jpg)_
 
 ### Not working
 
 - [Biblissima](https://iiif.biblissima.fr/collections/search?collection=Biblioth%C3%A8que%20nationale%20de%20France%20(Gallica)) - _no IIIF thumbnails_
+- [Yale Center for British Art](https://collections.britishart.yale.edu/vufind/Record/1668417) - _no IIIF thumbnails_
 
 
 ## Contributing
