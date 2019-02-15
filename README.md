@@ -5,7 +5,7 @@ If you want to install and run the latest stable version of the extension, pleas
 
 To run the development version, or to modify it yourself, proceed as follows:
 
-0. Checkout the `development` branch to a local directory
+1. Checkout the `development` branch to a local directory
 1. Open the Extension Management page by navigating to (<chrome://extensions>) or by clicking on the Chrome menu, hovering over More Tools then selecting Extensions.
 2. Enable Developer Mode by clicking the toggle switch next to Developer mode.
 3. Click the LOAD UNPACKED button and select the extension directory that you just checked out.
@@ -18,7 +18,7 @@ Please [log an issue](https://github.com/Cogapp/slowlooking-chrome-ext/issues) o
 
 Here's a list of things that are on our road-map:
 
-0. Add links as siblings of the a element surrounding an image links, not the image itself (see Wellcome Collection below)
+1. Add links as siblings of the a element surrounding an image links, not the image itself (see Wellcome Collection below)
 0. Better matching of images (e.g. 'native' as well as 'default' - YCBA; srcset - AIC)
 1. Make it work with embedded Openseadragon viewers
 2. Better handling of Javascript-rendered pages (e.g. [NGA thumbnails](https://www.nga.gov/collection-search-result.html?artobj_imagesonly=Images_online))
